@@ -46,5 +46,21 @@
         "matricula": "23232321",
         "especialidad": "SER JOTO",
         "es_objeto": false
+    },
+    {
+        "nombre": "IKER",
+        "apellido": "JOTOTOTE",
+        "edad": 23,
+        "matricula": "2313344",
+        "especialidad": "VALER VERGA",
+        "es_objeto": false
+    },
+    {
+        "nombre": "sdftyuiufhgv",
+        "apellido": "fsfsdfd",
+        "edad": 12,
+        "matricula": "1212212121",
+        "especialidad": "dededede",
+        "es_objeto": false
     }
 ]

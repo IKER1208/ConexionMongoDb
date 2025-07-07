@@ -1,62 +1,90 @@
 from alumno import Alumno
-from maestro import Maestro
 from arreglo import Arreglo
+from maestro import Maestro
+import os
 import json
 
 class Grupo(Arreglo):
-    def __init__(self, nombre=None, grado=None, seccion=None, maestro=None, alumnos=None):
-        if nombre is None:
-            super().__init__()
-            self.es_objeto = True
-            return
-
-        self.nombre = nombre
-        self.grado = grado
-        self.seccion = seccion
-
-        if isinstance(maestro, dict):
-            maestro = {k: v for k, v in maestro.items() if k in ["nombre", "apellido", "edad", "matricula", "especialidad"]}
-            self.maestro = Maestro(**maestro)
+    def __init__(self, nombre=None, maestro=None):
+        if nombre is None and maestro is None: 
+            Arreglo.__init__(self)
+            self.es_arreglo = True
         else:
-            self.maestro = maestro if isinstance(maestro, Maestro) else None
+            self.nombre = nombre
+            self.maestro = maestro
+            self.alumnos = Alumno()
+            self.es_arreglo = False
 
-        self.alumnos = Alumno()
-        if alumnos:
-            for alumno_data in alumnos:
-                if isinstance(alumno_data, dict):
-                    alumno_data = {k: v for k, v in alumno_data.items() if k in ["nombre", "apellido", "edad", "matricula", "sexo"]}
-                    self.alumnos.agregar(Alumno(**alumno_data))
-                elif isinstance(alumno_data, Alumno):
-                    self.alumnos.agregar(alumno_data)
+    def to_json(self):
+        with open("grupos.json", 'w') as file:
+            json.dump(self.to_dict(), file, indent=4)
 
-        self.es_objeto = False
+    def read_json(self):
+        with open("grupos.json", 'r') as file:
+            data = json.load(file)
+            return self._dict_to_object(data)
 
-    def asignarMaestro(self, maestro):
-        self.maestro = maestro
-        return f"El maestro {maestro.nombre} {maestro.apellido} ha sido asignado al grupo {self.nombre}."
+    def _dict_to_object(self, data):
+        if not data:
+            return None
+        if isinstance(data, list):
+            grupo_arreglo = Grupo()
+            for item in data:
+                grupo = grupo_arreglo._dict_to_object(item)                
+                grupo_arreglo.agregar(grupo)
+            return grupo_arreglo
+        else:
+            maestro_data = data.get('maestro')
+            maestro = None
+            if maestro_data:
+                maestro = Maestro(
+                    maestro_data['nombre'],
+                    maestro_data['apellido'],
+                    maestro_data['edad'],
+                    maestro_data['matricula'],
+                    maestro_data['especialidad']
+                )
+            
+            grupo = Grupo(data['nombre'], maestro)
+            
+            alumnos_data = data.get('alumnos', [])
+            if alumnos_data:
+                alumnos = Alumno()
+                alumnos._dict_to_object(alumnos_data)
+            if len(alumnos_data)>0:
+                alumnos=Alumno()
+                alumnos=alumnos._dict_to_object(alumnos_data)
+                grupo.alumnos=alumnos
+                grupo.alumnos = alumnos
+            
+            return grupo
 
-    def convertir_diccionario(self):
-        if self.es_objeto:
-            return [item.convertir_diccionario() for item in self.items]
-
+    def to_dict(self):
+        if self.es_arreglo:
+                return  [item.to_dict() for item in self.items] if self.items else []
         return {
-            "nombre": self.nombre,
-            "grado": self.grado,
-            "seccion": self.seccion,
-            "maestro": self.maestro.convertir_diccionario() if self.maestro else None,
-            "alumnos": self.alumnos.convertir_diccionario()
+            'tipo': 'grupo','nombre': self.nombre,
+            'maestro': self.maestro.to_dict()if self.maestro 
+              else None,'alumnos': self.alumnos.to_dict()
         }
 
-    def __str__(self):
-        if self.es_objeto:
-            return f"Total de grupos: {len(self.items)}"
-        maestro_nombre = f"{self.maestro.nombre} {self.maestro.apellido}" if self.maestro else "Sin asignar"
-        return f"Grupo: {self.nombre}, Grado: {self.grado}, Sección: {self.seccion}, Maestro: {maestro_nombre}, Alumnos: {len(self.alumnos.items)}"
+    def asignar_maestro(self, maestro):
+        self.maestro = maestro
 
-    def mostrar(self):
-        print(self)
-        print("Alumnos:")
-        self.alumnos.mostrar()
+    def cambiarNombre(self, nombre):
+        self.nombre = nombre
+
+    def __str__(self):
+        if self.es_arreglo:
+            return f"Total de grupos: {len(self.items)}"
+
+        maestro_info = f"{self.maestro.nombre} {self.maestro.apellido}" if self.maestro else "Falta asignar"
+
+        return (
+            f"Grupo: {self.nombre}\n"
+            f"Maestro: {maestro_info}\n"
+            f"Total de alumnos: {str(self.alumnos)}\n"
+        )
 
 
 
