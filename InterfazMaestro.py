@@ -65,7 +65,7 @@ class InterfazMaestro:
             db = client["escuela"]
             coleccion = db["Maestros"]
             coleccion.insert_one(maestro_dict)
-            print("✅ Maestro guardado en MongoDB.")
+            print("Maestro guardado en MongoDB.")
         else:
             archivo_temp = "maestros_no_sincronizados.json"
             datos = []
@@ -75,28 +75,47 @@ class InterfazMaestro:
             datos.append(maestro_dict)
             with open(archivo_temp, "w") as f:
                 json.dump(datos, f, indent=4)
-            print("⚠️ No hay conexión. Maestro guardado localmente en espera de sincronización.")
+            print("No hay conexión. Maestro guardado localmente en espera de sincronización.")
 
         if self.guardar:
             self.maestros.guardarArchivo(self.archivo)
 
     def eliminar(self):
+        if not hasattr(self.maestros, 'items') or not self.maestros.items:
+            print("No hay maestros")
+            return
+        maestros_ordenados = sorted(self.maestros.items, key=lambda m: m.nombre)
+        print("\n--- Lista de Maestros ---")
+        for idx, maestro in enumerate(maestros_ordenados, 1):
+            print(f"{idx}. {maestro.nombre} {maestro.apellido} (Matrícula: {maestro.matricula})")
         try:
-            indice = int(input("Índice del maestro a eliminar: "))
-            if self.maestros.eliminar(indice=indice):
-                if self.guardar:
-                    self.maestros.guardarArchivo(self.archivo)
-                print("Maestro eliminado correctamente.")
+            indice = int(input("Número del maestro a eliminar: ")) - 1
+            if 0 <= indice < len(maestros_ordenados):
+                maestro_a_eliminar = maestros_ordenados[indice]
+                idx_real = self.maestros.items.index(maestro_a_eliminar)
+                if self.maestros.eliminar(indice=idx_real):
+                    if self.guardar:
+                        self.maestros.guardarArchivo(self.archivo)
+                    print("Maestro eliminado correctamente.")
+                else:
+                    print("No se pudo eliminar.")
             else:
-                print("No se pudo eliminar.")
+                print("Índice fuera de rango.")
         except ValueError:
             print("Índice inválido.")
 
     def actualizar(self):
+        if not hasattr(self.maestros, 'items') or not self.maestros.items:
+            print("No hay maestros")
+            return
+        maestros_ordenados = sorted(self.maestros.items, key=lambda m: m.nombre)
+        print("\n--- Lista de Maestros ---")
+        for idx, maestro in enumerate(maestros_ordenados, 1):
+            print(f"{idx}. {maestro.nombre} {maestro.apellido} (Matrícula: {maestro.matricula})")
         try:
-            indice = int(input("Índice del maestro a actualizar: "))
-            if 0 <= indice < len(self.maestros.items):
-                maestro = self.maestros.items[indice]
+            indice = int(input("Número del maestro a actualizar: ")) - 1
+            if 0 <= indice < len(maestros_ordenados):
+                maestro = maestros_ordenados[indice]
                 print("Deja en blanco si no quieres cambiar un campo.")
 
                 nombre = input(f"Nombre ({maestro.nombre}): ") or maestro.nombre
@@ -137,10 +156,10 @@ class InterfazMaestro:
                 db = client["escuela"]
                 coleccion = db["Maestros"]
                 coleccion.insert_many(datos)
-                print(f"✅ Se sincronizaron {len(datos)} maestros con MongoDB.")
+                print(f"Se sincronizaron {len(datos)} maestros con MongoDB.")
                 os.remove(archivo_temp)
         else:
-            print("❌ Aún no hay conexión a MongoDB. No se puede sincronizar.")
+            print("Aún no hay conexión a MongoDB. No se puede sincronizar.")
 
 if __name__ == "__main__":
     interfaz = InterfazMaestro()

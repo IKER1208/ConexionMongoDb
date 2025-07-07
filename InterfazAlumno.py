@@ -70,22 +70,41 @@ class InterfazAlumno:
         self.guardar_en_mongo_o_local(datos_para_guardar)
 
     def eliminar_alumno(self):
+        if not hasattr(self.alumnos, 'items') or not self.alumnos.items:
+            print("No hay alumnos")
+            return
+        alumnos_ordenados = sorted(self.alumnos.items, key=lambda a: a.nombre)
+        print("\n--- Lista de Alumnos ---")
+        for idx, alumno in enumerate(alumnos_ordenados, 1):
+            print(f"{idx}. {alumno.nombre} {alumno.apellido} (Matrícula: {alumno.matricula})")
         try:
-            indice = int(input("Índice del alumno a eliminar: "))
-            if self.alumnos.eliminar(indice=indice):
-                if self.guardar:
-                    self.alumnos.guardarArchivo(self.archivo)
-                print("Alumno eliminado correctamente.")
+            indice = int(input("Número del alumno a eliminar: ")) - 1
+            if 0 <= indice < len(alumnos_ordenados):
+                alumno_a_eliminar = alumnos_ordenados[indice]
+                idx_real = self.alumnos.items.index(alumno_a_eliminar)
+                if self.alumnos.eliminar(indice=idx_real):
+                    if self.guardar:
+                        self.alumnos.guardarArchivo(self.archivo)
+                    print("Alumno eliminado correctamente.")
+                else:
+                    print("No se pudo eliminar.")
             else:
-                print("No se pudo eliminar.")
+                print("Índice fuera de rango.")
         except ValueError:
             print("Índice inválido.")
 
     def actualizar_alumno(self):
+        if not hasattr(self.alumnos, 'items') or not self.alumnos.items:
+            print("No hay alumnos")
+            return
+        alumnos_ordenados = sorted(self.alumnos.items, key=lambda a: a.nombre)
+        print("\n--- Lista de Alumnos ---")
+        for idx, alumno in enumerate(alumnos_ordenados, 1):
+            print(f"{idx}. {alumno.nombre} {alumno.apellido} (Matrícula: {alumno.matricula})")
         try:
-            indice = int(input("Índice del alumno a actualizar: "))
-            if 0 <= indice < len(self.alumnos.items):
-                alumno = self.alumnos.items[indice]
+            indice = int(input("Número del alumno a actualizar: ")) - 1
+            if 0 <= indice < len(alumnos_ordenados):
+                alumno = alumnos_ordenados[indice]
                 print("Deja en blanco si no quieres cambiar un campo.")
 
                 nombre = input(f"Nombre ({alumno.nombre}): ") or alumno.nombre
