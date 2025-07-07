@@ -21,7 +21,7 @@ class InterfazGrupo:
             self.grupos.cargarArchivo(archivo, Grupo)
 
             self.grupos_offline = Grupo()
-            self.grupos_offline.cargarArchivo("grupos_offline.json", Grupo)
+            self.grupos_offline.cargarArchivo(archivo="grupos_offline.json",clase_objeto= Grupo)
 
             self.guardar = True
         else:
@@ -109,6 +109,13 @@ class InterfazGrupo:
             db = client["escuela"]
             coleccion = db["Grupos"]
             grupo_dict = grupo.convertir_dict_mongo() if hasattr(grupo, "convertir_dict_mongo") else grupo.__dict__
+
+            # Convierte maestro y alumnos a dict si existen
+            if "maestro" in grupo_dict and hasattr(grupo_dict["maestro"], "__dict__"):
+                grupo_dict["maestro"] = grupo_dict["maestro"].__dict__
+            if "alumnos" in grupo_dict and hasattr(grupo_dict["alumnos"], "items"):
+                grupo_dict["alumnos"] = [alumno.__dict__ for alumno in grupo_dict["alumnos"].items]
+
             coleccion.insert_one(grupo_dict)
             print("✅ Grupo guardado en MongoDB.")
         else:

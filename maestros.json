@@ -30,5 +30,21 @@
         "matricula": "M004",
         "especialidad": "Español",
         "es_objeto": false
+    },
+    {
+        "nombre": "IKER ",
+        "apellido": "JOTO",
+        "edad": 21,
+        "matricula": "3123123213",
+        "especialidad": "JOTEAR",
+        "es_objeto": false
+    },
+    {
+        "nombre": "IKER",
+        "apellido": "PUÑAL",
+        "edad": 21,
+        "matricula": "23232321",
+        "especialidad": "SER JOTO",
+        "es_objeto": false
     }
 ]
