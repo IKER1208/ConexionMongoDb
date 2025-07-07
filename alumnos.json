@@ -1,0 +1,34 @@
+[
+    {
+        "nombre": "Iker",
+        "apellido": "Sin",
+        "edad": 11,
+        "matricula": "121212121",
+        "sexo": "M",
+        "es_objeto": false
+    },
+    {
+        "nombre": "Ramiro",
+        "apellido": "Lopez",
+        "edad": 15,
+        "matricula": "232323232",
+        "sexo": "M",
+        "es_objeto": false
+    },
+    {
+        "nombre": "Garay",
+        "apellido": "Martinez",
+        "edad": 14,
+        "matricula": "343434343",
+        "sexo": "M",
+        "es_objeto": false
+    },
+    {
+        "nombre": "Igmar",
+        "apellido": "Perez",
+        "edad": 13,
+        "matricula": "454545454",
+        "sexo": "M",
+        "es_objeto": false
+    }
+]

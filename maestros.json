@@ -1,0 +1,34 @@
+[
+    {
+        "nombre": "Iker",
+        "apellido": "Sin",
+        "edad": 30,
+        "matricula": "M001",
+        "especialidad": "Matemáticas",
+        "es_objeto": false
+    },
+    {
+        "nombre": "Ramiro",
+        "apellido": "Lopez",
+        "edad": 35,
+        "matricula": "M002",
+        "especialidad": "Historia",
+        "es_objeto": false
+    },
+    {
+        "nombre": "Garay",
+        "apellido": "Martinez",
+        "edad": 40,
+        "matricula": "M003",
+        "especialidad": "Ciencias",
+        "es_objeto": false
+    },
+    {
+        "nombre": "Igmar",
+        "apellido": "Perez",
+        "edad": 38,
+        "matricula": "M004",
+        "especialidad": "Español",
+        "es_objeto": false
+    }
+]
