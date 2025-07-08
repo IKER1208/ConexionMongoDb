@@ -4,6 +4,7 @@
         "apellido": "Sin",
         "edad": 11,
         "matricula": "121212121",
+        "promedio": 10,
         "sexo": "M",
         "es_objeto": false
     },
@@ -12,6 +13,7 @@
         "apellido": "Lopez",
         "edad": 15,
         "matricula": "232323232",
+        "promedio": 10,
         "sexo": "M",
         "es_objeto": false
     },
@@ -20,6 +22,7 @@
         "apellido": "Martinez",
         "edad": 14,
         "matricula": "343434343",
+        "promedio": 10,
         "sexo": "M",
         "es_objeto": false
     },
@@ -28,6 +31,7 @@
         "apellido": "Perez",
         "edad": 13,
         "matricula": "454545454",
+        "promedio": 10,
         "sexo": "M",
         "es_objeto": false
     }
