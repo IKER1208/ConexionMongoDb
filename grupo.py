@@ -113,7 +113,7 @@ class Grupo(Arreglo):
 
 
 if __name__ == "__main__":
-    from InterfazGrupo import InterfazGrupo
+    from menu_grupos import MenuGrupos
 
     grupos = Grupo()
     maestro = Maestro("Renata", "Silva", 37, "M010", "Arte")
@@ -121,5 +121,5 @@ if __name__ == "__main__":
     grupo_individual = Grupo("Astronomía", "2do", "B", maestro, [alumno])
     grupos.agregar(grupo_individual)
 
-    interfaz = InterfazGrupo(grupos)
+    interfaz = MenuGrupos(grupos)
     interfaz.menu()
