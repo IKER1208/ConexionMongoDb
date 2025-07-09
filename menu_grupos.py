@@ -25,11 +25,17 @@ class MenuGrupos:
                 grupos_data = list(db["Grupos"].find())
                 if grupos_data:
                     self.grupos.items = [Grupo(**{k: v for k, v in g.items() if k != '_id'}) for g in grupos_data]
+                self.sincronizar_offline(db)
             except Exception as e:
                 print(f"Error al cargar grupos de MongoDB: {e}")
         else:
             try:
-                if os.path.exists("grupos.json"):
+                if os.path.exists("grupos_offline.json"):
+                    with open("grupos_offline.json", "r") as f:
+                        data = json.load(f)
+                        if data:
+                            self.grupos.items = [Grupo(**g) for g in data]
+                elif os.path.exists("grupos.json"):
                     with open("grupos.json", "r") as f:
                         data = json.load(f)
                         if data:
@@ -45,15 +51,37 @@ class MenuGrupos:
                 db["Grupos"].delete_many({})
                 db["Grupos"].insert_many([g.to_dict() for g in self.grupos.items])
                 print("Datos guardados en MongoDB.")
+                self.sincronizar_offline(db)
             except Exception as e:
                 print(f"Error al guardar en MongoDB: {e}")
         else:
             try:
-                with open("grupos.json", "w") as f:
-                    json.dump([g.to_dict() for g in self.grupos.items], f, indent=4)
-                print("Datos guardados en JSON.")
+                if os.path.exists("grupos_offline.json"):
+                    with open("grupos_offline.json", "w") as f:
+                        json.dump([g.to_dict() for g in self.grupos.items], f, indent=4)
+                    print("Datos guardados en grupos_offline.json (modo offline).")
+                    with open("grupos.json", "w") as f:
+                        json.dump([g.to_dict() for g in self.grupos.items], f, indent=4)
+                        print("Datos guardados en grupos.json (modo offline).")
+                else:
+                    with open("grupos.json", "w") as f:
+                        json.dump([g.to_dict() for g in self.grupos.items], f, indent=4)
+                        print("Datos guardados en grupos.json.")
             except Exception as e:
                 print(f"Error al guardar en JSON: {e}")
+
+    def sincronizar_offline(self, db):
+        if os.path.exists("grupos_offline.json"):
+            try:
+                with open("grupos_offline.json", "r") as f:
+                    offline_data = json.load(f)
+                if offline_data:
+                    db["Grupos"].delete_many({})
+                    db["Grupos"].insert_many(offline_data)
+                    print("Datos offline sincronizados con MongoDB.")
+                os.remove("grupos_offline.json")
+            except Exception as e:
+                print(f"Error al sincronizar datos offline: {e}")
 
     def mostrar_menu(self):
         while True:
@@ -202,4 +230,4 @@ class MenuGrupos:
 
 if __name__ == "__main__":
     app = MenuGrupos()
-    app.mostrar_menu() 
+    app.mostrar_menu()
