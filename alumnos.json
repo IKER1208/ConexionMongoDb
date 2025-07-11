@@ -1,9 +1,9 @@
 [
     {
-        "nombre": "IKER",
-        "apellido": "JOTO",
-        "edad": 23,
-        "matricula": "23131445",
+        "nombre": "JUAN",
+        "apellido": "PEREZ",
+        "edad": 12,
+        "matricula": "1212121212",
         "promedio": 10.0,
         "sexo": null,
         "es_objeto": false

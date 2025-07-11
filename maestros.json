@@ -1,66 +1,18 @@
 [
     {
-        "nombre": "Iker",
-        "apellido": "Sin",
-        "edad": 30,
-        "matricula": "M001",
-        "especialidad": "Matemáticas",
+        "nombre": "meto",
+        "apellido": "weqweqw",
+        "edad": 10,
+        "matricula": "111111",
+        "especialidad": "de todo",
         "es_objeto": false
     },
     {
-        "nombre": "Ramiro",
-        "apellido": "Lopez",
-        "edad": 35,
-        "matricula": "M002",
-        "especialidad": "Historia",
-        "es_objeto": false
-    },
-    {
-        "nombre": "Garay",
-        "apellido": "Martinez",
-        "edad": 40,
-        "matricula": "M003",
-        "especialidad": "Ciencias",
-        "es_objeto": false
-    },
-    {
-        "nombre": "Igmar",
-        "apellido": "Perez",
-        "edad": 38,
-        "matricula": "M004",
-        "especialidad": "Español",
-        "es_objeto": false
-    },
-    {
-        "nombre": "IKER ",
-        "apellido": "JOTO",
-        "edad": 21,
-        "matricula": "3123123213",
-        "especialidad": "JOTEAR",
-        "es_objeto": false
-    },
-    {
-        "nombre": "IKER",
-        "apellido": "PUÑAL",
-        "edad": 21,
-        "matricula": "23232321",
-        "especialidad": "SER JOTO",
-        "es_objeto": false
-    },
-    {
-        "nombre": "IKER",
-        "apellido": "JOTOTOTE",
-        "edad": 23,
-        "matricula": "2313344",
-        "especialidad": "VALER VERGA",
-        "es_objeto": false
-    },
-    {
-        "nombre": "sdftyuiufhgv",
-        "apellido": "fsfsdfd",
-        "edad": 12,
-        "matricula": "1212212121",
-        "especialidad": "dededede",
+        "nombre": "wqeweqwe",
+        "apellido": "qwewqeq",
+        "edad": 122,
+        "matricula": "12121212",
+        "especialidad": "qweqweqweqwe",
         "es_objeto": false
     }
 ]

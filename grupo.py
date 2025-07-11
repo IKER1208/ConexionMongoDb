@@ -44,12 +44,12 @@ class Grupo(Arreglo):
             else:
                 self.alumnos = alumnos
             self.es_arreglo = False
-    def to_json(self):
-        with open("grupos.json", 'w') as file:
+    def to_json(self,archivo="grupos.json"):
+        with open(archivo, 'w') as file:
             json.dump(self.to_dict(), file, indent=4)
 
-    def read_json(self):
-        with open("grupos.json", 'r') as file:
+    def read_json(self,archivo="grupos.json"):
+        with open(archivo, 'r') as file:
             data = json.load(file)
             return self._dict_to_object(data)
 

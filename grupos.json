@@ -1,162 +1,22 @@
 [
     {
-        "nombre": "IKER JOTOTE",
-        "grado": "6",
-        "seccion": "A",
+        "nombre": "grupoOFFYMONGO",
+        "grado": null,
+        "seccion": null,
         "maestro": {
-            "nombre": "IKER",
-            "apellido": "PU\u00d1AL",
-            "edad": 21,
-            "matricula": "23232321",
-            "especialidad": "SER JOTO",
-            "es_objeto": false
-        },
-        "alumnos": [],
-        "es_objeto": false
-    },
-    {
-        "nombre": "IKER MARICON",
-        "grado": "2",
-        "seccion": "A",
-        "maestro": {
-            "nombre": "IKER NO VALE VERGA",
-            "apellido": "j",
-            "edad": 21,
-            "matricula": "33231321",
-            "especialidad": "fsdfsd",
-            "es_objeto": false
-        },
-        "alumnos": [],
-        "es_objeto": false
-    },
-    {
-        "nombre": "IKER MARICA",
-        "grado": "4",
-        "seccion": "A",
-        "maestro": {
-            "nombre": "IKER",
-            "apellido": "JOTOTOTE",
-            "edad": 23,
-            "matricula": "2313344",
-            "especialidad": "VALER VERGA",
+            "nombre": "wqeweqwe",
+            "apellido": "qwewqeq",
+            "edad": 122,
+            "matricula": "12121212",
+            "especialidad": "qweqweqweqwe",
             "es_objeto": false
         },
         "alumnos": [
             {
-                "nombre": "IKER",
-                "apellido": "PUTO",
-                "edad": 21,
-                "matricula": "123132132",
-                "promedio": null,
-                "sexo": "F",
-                "es_objeto": false
-            }
-        ],
-        "es_objeto": false
-    },
-    {
-        "nombre": "fnjdnajdnkf",
-        "grado": "1222",
-        "seccion": "e",
-        "maestro": {
-            "nombre": "sdftyuiufhgv",
-            "apellido": "fsfsdfd",
-            "edad": 12,
-            "matricula": "1212212121",
-            "especialidad": "dededede",
-            "es_objeto": false
-        },
-        "alumnos": [],
-        "es_objeto": false
-    },
-    {
-        "nombre": "A VER SI JALA LA CHINGADERA",
-        "grado": "5",
-        "seccion": "A",
-        "maestro": {
-            "nombre": "IGMAR JOTO",
-            "apellido": "JOTISIMO",
-            "edad": 22,
-            "matricula": "qw32qw123",
-            "especialidad": "SER JOTO",
-            "es_objeto": false
-        },
-        "alumnos": [
-            {
-                "nombre": "NO",
-                "apellido": "SE",
-                "edad": 2222,
-                "matricula": "qwqwqwqwqwq",
-                "promedio": null,
-                "sexo": "M",
-                "es_objeto": false
-            }
-        ],
-        "es_objeto": false
-    },
-    {
-        "nombre": "OFFLINE",
-        "grado": null,
-        "seccion": null,
-        "maestro": {
-            "nombre": "sdftyuiufhgv",
-            "apellido": "fsfsdfd",
-            "edad": 12,
-            "matricula": "1212212121",
-            "especialidad": "dededede",
-            "es_objeto": false
-        },
-        "alumnos": [],
-        "es_objeto": false
-    },
-    {
-        "nombre": "OFFLINE 2",
-        "grado": null,
-        "seccion": null,
-        "maestro": {
-            "nombre": "IKER",
-            "apellido": "PU\u00d1AL",
-            "edad": 21,
-            "matricula": "23232321",
-            "especialidad": "SER JOTO",
-            "es_objeto": false
-        },
-        "alumnos": [],
-        "es_objeto": false
-    },
-    {
-        "nombre": "PRUEBA 2",
-        "grado": null,
-        "seccion": null,
-        "maestro": {
-            "nombre": "IKER",
-            "apellido": "JOTOTOTE",
-            "edad": 23,
-            "matricula": "2313344",
-            "especialidad": "VALER VERGA",
-            "es_objeto": false
-        },
-        "alumnos": [],
-        "es_objeto": false
-    },
-    {
-        "nombre": "PRUEBA 3",
-        "grado": null,
-        "seccion": null,
-        "maestro": {
-            "nombre": "IKER ",
-            "apellido": "JOTO",
-            "edad": 21,
-            "matricula": "3123123213",
-            "especialidad": "JOTEAR",
-            "es_objeto": false
-        },
-        "alumnos": [
-            {
-                "nombre": "IKER",
-                "apellido": "JOTO",
-                "edad": 23,
-                "matricula": "23131445",
+                "nombre": "OFF",
+                "apellido": "MONGO",
+                "edad": 100,
+                "matricula": "100000",
                 "promedio": 10.0,
                 "sexo": null,
                 "es_objeto": false
@@ -165,18 +25,28 @@
         "es_objeto": false
     },
     {
-        "nombre": "PRUEBA OFFLINE",
+        "nombre": "QWERTYYY",
         "grado": null,
         "seccion": null,
         "maestro": {
-            "nombre": "IKER ",
-            "apellido": "JOTO",
-            "edad": 21,
-            "matricula": "3123123213",
-            "especialidad": "JOTEAR",
+            "nombre": "meto",
+            "apellido": "weqweqw",
+            "edad": 10,
+            "matricula": "1111111",
+            "especialidad": "de todo",
             "es_objeto": false
         },
-        "alumnos": [],
+        "alumnos": [
+            {
+                "nombre": "offff",
+                "apellido": "ffffff",
+                "edad": 100,
+                "matricula": "11111",
+                "promedio": 10.0,
+                "sexo": null,
+                "es_objeto": false
+            }
+        ],
         "es_objeto": false
     }
 ]
