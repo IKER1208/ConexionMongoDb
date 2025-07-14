@@ -15,28 +15,43 @@ class MenuAlumnos:
 
     def cargar_datos(self):
         client = conectar_mongo()
-        if client:
+        if os.path.exists("alumnos_offline.json"):
+            try:
+                with open("alumnos_offline.json", "r") as f:
+                    data = json.load(f)
+                if data:
+                    self.alumnos.items = [Alumno(**a) for a in data]
+                print("Datos cargados de alumnos_offline.json (modo offline).")
+            except Exception as e:
+                print(f"Error al cargar alumnos_offline.json: {e}")
+        elif os.path.exists("alumnos.json"):
+            try:
+                with open("alumnos.json", "r") as f:
+                    data = json.load(f)
+                if data:
+                    self.alumnos.items = [Alumno(**a) for a in data]
+                print("Datos cargados de alumnos.json.")
+            except Exception as e:
+                print(f"Error al cargar alumnos.json: {e}")
+        elif client:
             db = client["escuela"]
+            self.sincronizar_offline(db)
             try:
                 alumnos_data = list(db["Alumnos"].find())
                 if alumnos_data:
                     self.alumnos.items = [Alumno(**{k: v for k, v in a.items() if k != '_id'}) for a in alumnos_data]
+                print("Datos cargados de MongoDB.")
             except Exception as e:
                 print(f"Error al cargar alumnos de MongoDB: {e}")
         else:
-            try:
-                if os.path.exists("alumnos.json"):
-                    with open("alumnos.json", "r") as f:
-                        data = json.load(f)
-                        if data:
-                            self.alumnos.items = [Alumno(**a) for a in data]
-            except Exception as e:
-                print(f"Error al cargar alumnos de JSON: {e}")
+            print("No se encontraron datos de alumnos.")
 
     def guardar_datos(self):
         client = conectar_mongo()
         if client:
             db = client["escuela"]
+            # Sincronizar datos offline si existen
+            self.sincronizar_offline(db)
             try:
                 db["Alumnos"].delete_many({})
                 db["Alumnos"].insert_many([a.to_dict() for a in self.alumnos.items])
@@ -45,11 +60,24 @@ class MenuAlumnos:
                 print(f"Error al guardar en MongoDB: {e}")
         else:
             try:
-                with open("alumnos.json", "w") as f:
+                with open("alumnos_offline.json", "w") as f:
                     json.dump([a.to_dict() for a in self.alumnos.items], f, indent=4)
-                print("Datos guardados en JSON.")
+                print("Datos guardados en alumnos_offline.json (modo offline).")
             except Exception as e:
-                print(f"Error al guardar en JSON: {e}")
+                print(f"Error al guardar en JSON offline: {e}")
+
+    def sincronizar_offline(self, db):
+        if os.path.exists("alumnos_offline.json"):
+            try:
+                with open("alumnos_offline.json", "r") as f:
+                    offline_data = json.load(f)
+                if offline_data:
+                    db["Alumnos"].delete_many({})
+                    db["Alumnos"].insert_many(offline_data)
+                    print("Datos offline de alumnos sincronizados con MongoDB.")
+                os.remove("alumnos_offline.json")
+            except Exception as e:
+                print(f"Error al sincronizar datos offline de alumnos: {e}")
 
     def mostrar_menu(self):
         while True:
