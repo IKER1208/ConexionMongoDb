@@ -58,9 +58,7 @@ class MenuAlumnos:
             print("2. Agregar alumno")
             print("3. Editar alumno")
             print("4. Eliminar alumno")
-            print("5. Gestionar calificaciones de un alumno")
-            print("6. Estadísticas del grupo")
-            print("7. Salir")
+            print("5. Salir")
             
             opcion = input("Seleccione una opción: ")
             
@@ -73,10 +71,6 @@ class MenuAlumnos:
             elif opcion == "4":
                 self.eliminar_alumno()
             elif opcion == "5":
-                self.menu_calificaciones()
-            elif opcion == "6":
-                self.estadisticas_grupo()
-            elif opcion == "7":
                 print("Saliendo del sistema...")
                 break
             else:
@@ -89,8 +83,7 @@ class MenuAlumnos:
             return
             
         for i, alumno in enumerate(self.alumnos.items):
-            promedio_txt = alumno.promedio if getattr(alumno, 'promedio', None) is not None else 'N/A'
-            print(f"{i+1}. {alumno.nombre} {alumno.apellido} - {alumno.matricula} - Promedio: {promedio_txt}")
+            print(f"{i+1}. {alumno.nombre} {alumno.apellido} - {alumno.matricula}")
 
     def agregar_alumno(self):
         print("\n--- AGREGAR ALUMNO ---")
@@ -99,13 +92,13 @@ class MenuAlumnos:
             apellido = input("Apellido: ")
             edad = int(input("Edad: "))
             matricula = input("Matrícula: ")
+            promedio = float(input("Promedio (0-10): "))
             nuevo_alumno = Alumno(
                 nombre=nombre,
                 apellido=apellido,
                 edad=edad,
                 matricula=matricula,
-                promedio=None,
-                calificaciones=[]
+                promedio=promedio
             )
             if not hasattr(self.alumnos, 'agregar'):
                 self.alumnos = Alumno()
@@ -158,78 +151,6 @@ class MenuAlumnos:
                     self.guardar_datos()
         except (IndexError, ValueError) as e:
             print(f"Selección no válida: {str(e)}")
-
-    def _seleccionar_alumno(self):
-        self.listar_alumnos()
-        if not hasattr(self.alumnos, 'items') or not self.alumnos.items:
-            return None, None
-        try:
-            indice = int(input("Seleccione el número del alumno: ")) - 1
-            return self.alumnos.items[indice], indice
-        except (IndexError, ValueError):
-            print("Selección no válida.")
-            return None, None
-
-    def menu_calificaciones(self):
-        alumno, _ = self._seleccionar_alumno()
-        if alumno is None:
-            return
-        while True:
-            print(f"\n--- CALIFICACIONES: {alumno.nombre} {alumno.apellido} ---")
-            print("1. Listar calificaciones")
-            print("2. Agregar calificación (0-100)")
-            print("3. Ver promedio, máxima y mínima")
-            print("4. Volver")
-            opcion = input("Seleccione una opción: ")
-            if opcion == '1':
-                califs = getattr(alumno, 'calificaciones', [])
-                if not califs:
-                    print("Sin calificaciones registradas.")
-                else:
-                    print(f"Calificaciones: {califs}")
-            elif opcion == '2':
-                try:
-                    valor = float(input("Ingrese calificación (0-100): "))
-                    if alumno.agregar_calificacion(valor):
-                        print("Calificación agregada y promedio actualizado.")
-                        self.guardar_datos()
-                    else:
-                        print("Valor inválido. Debe estar entre 0 y 100.")
-                except ValueError:
-                    print("Entrada inválida.")
-            elif opcion == '3':
-                print(f"Promedio: {alumno.promedio if alumno.promedio is not None else 'N/A'}")
-                print(f"Máxima: {alumno.calificacion_maxima()}")
-                print(f"Mínima: {alumno.calificacion_minima()}")
-            elif opcion == '4':
-                break
-            else:
-                print("Opción no válida.")
-
-    def estadisticas_grupo(self):
-        if not hasattr(self.alumnos, 'items') or not self.alumnos.items:
-            print("No hay alumnos para calcular estadísticas.")
-            return
-        alumnos_validos = [a for a in self.alumnos.items if getattr(a, 'promedio', None) is not None or getattr(a, 'calificaciones', None)]
-        # Asegurar promedios calculados
-        for a in alumnos_validos:
-            if a.promedio is None:
-                a.calcular_promedio()
-        promedios = [a.promedio for a in alumnos_validos if a.promedio is not None]
-        if not promedios:
-            print("No hay promedios calculados todavía.")
-            return
-        promedio_grupo = round(sum(promedios) / len(promedios), 2)
-        aprobaron = sum(1 for a in alumnos_validos if a.esta_aprobado(70))
-        reprobaron = sum(1 for a in alumnos_validos if a.promedio is not None and a.promedio < 70)
-        abajo = sum(1 for a in alumnos_validos if a.promedio is not None and a.promedio < promedio_grupo)
-        arriba = sum(1 for a in alumnos_validos if a.promedio is not None and a.promedio > promedio_grupo)
-        print("\n--- ESTADÍSTICAS DEL GRUPO ---")
-        print(f"Promedio del grupo: {promedio_grupo}")
-        print(f"Alumnos que aprobaron (>=70): {aprobaron}")
-        print(f"Alumnos que reprobaron (<70): {reprobaron}")
-        print(f"Alumnos por debajo del promedio del grupo: {abajo}")
-        print(f"Alumnos por arriba del promedio del grupo: {arriba}")
 
 if __name__ == "__main__":
     alumno1 = Alumno(nombre="Juan", apellido="Pérez", edad=22, matricula="222222222", promedio=9.5)
