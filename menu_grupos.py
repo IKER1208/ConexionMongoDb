@@ -24,9 +24,10 @@ class MenuGrupos:
             client = conectar_mongo()
             if client:
                 if os.path.exists("grupos.json"):
-                    data = self.grupos.read_json("grupos.json")
+                    data = self.grupos.read_json()
                     if data:
-                        self.grupos = data  
+                        self.grupos = data 
+                        print("Grupos cargados de grupos.json")
                 else:
                     db = client["escuela"]
                     try:
@@ -42,7 +43,7 @@ class MenuGrupos:
                     if data:
                         self.grupos = data  
                 elif os.path.exists("grupos.json"):
-                    data = self.grupos.read_json("grupos.json")
+                    data = self.grupos.read_json()
                     if data:
                         self.grupos = data 
         except Exception as e:

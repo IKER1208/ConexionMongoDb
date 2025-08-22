@@ -35,7 +35,7 @@ class Grupo(Arreglo):
                             apellido=a.get('apellido'),
                             edad=a.get('edad'),
                             matricula=a.get('matricula'),
-                            promedio=a.get('promedio'),
+                            calificacion=a.get('calificacion'),
                             sexo=a.get('sexo'),
                             es_objeto=a.get('es_objeto')
                         ))
