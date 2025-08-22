@@ -4,7 +4,7 @@ from conexion import conectar_mongo
 import json
 
 class MenuAlumnos:
-    def __init__(self, alumnos=None):
+    def __init__(self, alumnos=None, grupo=None, grupos_ref=None):
         if alumnos is None:
             self.alumnos = Alumno()
             self.isJson = True
@@ -12,6 +12,8 @@ class MenuAlumnos:
         else:
             self.alumnos = alumnos
             self.isJson = False
+        self.grupo = grupo
+        self.grupos_ref = grupos_ref
 
     def cargar_datos(self):
         try:
@@ -190,6 +192,22 @@ class MenuAlumnos:
         print(f"Alumnos arriba del promedio: {sum(1 for c in calificaciones if c > prom)}")
         print(f"Alumnos aprobados: {sum(1 for c in calificaciones if c >= 70)}")
         print(f"Alumnos reprobados: {sum(1 for c in calificaciones if c < 70)}")
+        # Persistir las estadísticas solamente en grupos.json si estamos dentro de un grupo
+        if self.grupo is not None and self.grupos_ref is not None:
+            try:
+                estadisticas = {
+                    'promedio': prom,
+                    'debajo_promedio': sum(1 for c in calificaciones if c < prom),
+                    'arriba_promedio': sum(1 for c in calificaciones if c > prom),
+                    'aprobados': sum(1 for c in calificaciones if c >= 70),
+                    'reprobados': sum(1 for c in calificaciones if c < 70)
+                }
+                # adjuntar al grupo actual y escribir solo en grupos.json
+                self.grupo.estadisticas = estadisticas
+                if hasattr(self.grupos_ref, 'to_json'):
+                    self.grupos_ref.to_json("grupos.json")
+            except Exception as e:
+                print(f"Error al guardar estadísticas en grupos.json: {e}")
  
 
 if __name__ == "__main__":

@@ -38,8 +38,74 @@
                 "calificacion": 90.0,
                 "sexo": null,
                 "es_objeto": false
+            },
+            {
+                "nombre": "sadasd",
+                "apellido": "sadasdasd",
+                "edad": 23,
+                "matricula": "dqwdwq",
+                "calificacion": 90.0,
+                "sexo": null,
+                "es_objeto": false
             }
         ],
+        "estadisticas": {
+            "promedio": 75.0,
+            "debajo_promedio": 2,
+            "arriba_promedio": 2,
+            "aprobados": 3,
+            "reprobados": 1
+        },
+        "es_objeto": false
+    },
+    {
+        "nombre": "Prueba 2",
+        "grado": null,
+        "seccion": null,
+        "maestro": {
+            "nombre": "wqeweqwe",
+            "apellido": "qwewqeq",
+            "edad": 122,
+            "matricula": "12121212",
+            "especialidad": "qweqweqweqwe",
+            "es_objeto": false
+        },
+        "alumnos": [
+            {
+                "nombre": "adssda",
+                "apellido": "cxzcx",
+                "edad": 23,
+                "matricula": "sdasdadas",
+                "calificacion": 80.0,
+                "sexo": null,
+                "es_objeto": false
+            },
+            {
+                "nombre": "lmlmdlwq",
+                "apellido": "kdnwkndw",
+                "edad": 45,
+                "matricula": "dasasd",
+                "calificacion": 70.0,
+                "sexo": null,
+                "es_objeto": false
+            },
+            {
+                "nombre": "asdasd",
+                "apellido": "cxzzxc",
+                "edad": 43,
+                "matricula": "wqeqwe",
+                "calificacion": 34.0,
+                "sexo": null,
+                "es_objeto": false
+            }
+        ],
+        "estadisticas": {
+            "promedio": 61.333333333333336,
+            "debajo_promedio": 1,
+            "arriba_promedio": 2,
+            "aprobados": 2,
+            "reprobados": 1
+        },
         "es_objeto": false
     }
 ]

@@ -25,5 +25,14 @@
         "calificacion": 90.0,
         "sexo": null,
         "es_objeto": false
+    },
+    {
+        "nombre": "sadasd",
+        "apellido": "sadasdasd",
+        "edad": 23,
+        "matricula": "dqwdwq",
+        "calificacion": 90.0,
+        "sexo": null,
+        "es_objeto": false
     }
 ]

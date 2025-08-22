@@ -5,7 +5,7 @@ import os
 import json
 
 class Grupo(Arreglo):
-    def __init__(self, nombre=None, grado=None, seccion=None, maestro=None, alumnos=None, es_objeto=None):
+    def __init__(self, nombre=None, grado=None, seccion=None, maestro=None, alumnos=None, es_objeto=None, estadisticas=None):
         if nombre is None and maestro is None:
             Arreglo.__init__(self)
             self.es_arreglo = True
@@ -43,6 +43,7 @@ class Grupo(Arreglo):
                         self.alumnos.agregar(a)
             else:
                 self.alumnos = alumnos
+            self.estadisticas = estadisticas
             self.es_arreglo = False
     def to_json(self,archivo="grupos.json"):
         with open(archivo, 'w') as file:
@@ -65,7 +66,8 @@ class Grupo(Arreglo):
                     seccion=item.get('seccion'),
                     maestro=item.get('maestro'),
                     alumnos=item.get('alumnos'),
-                    es_objeto=item.get('es_objeto')
+                    es_objeto=item.get('es_objeto'),
+                    estadisticas=item.get('estadisticas')
                 )
                 grupo_arreglo.agregar(grupo)
             return grupo_arreglo
@@ -76,7 +78,8 @@ class Grupo(Arreglo):
                 seccion=data.get('seccion'),
                 maestro=data.get('maestro'),
                 alumnos=data.get('alumnos'),
-                es_objeto=data.get('es_objeto')
+                es_objeto=data.get('es_objeto'),
+                estadisticas=data.get('estadisticas')
             )
 
     def to_dict(self):
@@ -88,6 +91,7 @@ class Grupo(Arreglo):
             'seccion': self.seccion,
             'maestro': self.maestro.to_dict() if self.maestro else None,
             'alumnos': self.alumnos.to_dict() if self.alumnos else [],
+            'estadisticas': self.estadisticas if hasattr(self, 'estadisticas') else None,
             'es_objeto': self.es_arreglo if hasattr(self, 'es_arreglo') else False
         }
 

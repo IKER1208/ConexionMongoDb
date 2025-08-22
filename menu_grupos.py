@@ -156,7 +156,7 @@ class MenuGrupos:
             nuevo_grupo.maestro = maestro
             print(f"Profesor asignado")    
             grupo_creado = self.grupos.items[-1]
-            menu_alumnos = MenuAlumnos(alumnos=grupo_creado.alumnos)
+            menu_alumnos = MenuAlumnos(alumnos=grupo_creado.alumnos, grupo=grupo_creado, grupos_ref=self.grupos)
             menu_alumnos.mostrar_menu()
             self.alumnos = menu_alumnos.alumnos
             self.guardar_datos()
@@ -219,7 +219,7 @@ class MenuGrupos:
         try:
             grupo_indice = int(input("Número del grupo: ")) - 1
             grupo = self.grupos.items[grupo_indice]
-            menu_alumnos = MenuAlumnos(alumnos=self.grupos.items[grupo_indice].alumnos)
+            menu_alumnos = MenuAlumnos(alumnos=self.grupos.items[grupo_indice].alumnos, grupo=grupo, grupos_ref=self.grupos)
             menu_alumnos.mostrar_menu()
             self.alumnos = menu_alumnos.alumnos
             self.guardar_datos()
