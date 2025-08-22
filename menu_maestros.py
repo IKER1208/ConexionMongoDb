@@ -14,42 +14,64 @@ class MenuMaestros:
             self.isJson = False
 
     def cargar_datos(self):
-        client = conectar_mongo()
-        if client:
-            db = client["escuela"]
-            try:
-                maestros_data = list(db["Maestros"].find())
-                if maestros_data:
-                    self.maestros.items = [Maestro(**{k: v for k, v in m.items() if k != '_id'}) for m in maestros_data]
-            except Exception as e:
-                print(f"Error al cargar maestros de MongoDB: {e}")
-        else:
-            try:
+        try:
+            client = conectar_mongo()
+            if client:
                 if os.path.exists("maestros.json"):
-                    with open("maestros.json", "r") as f:
-                        data = json.load(f)
-                        if data:
-                            self.maestros.items = [Maestro(**m) for m in data]
-            except Exception as e:
-                print(f"Error al cargar maestros de JSON: {e}")
+                    data = self.maestros.read_json()
+                    if data:
+                        self.maestros = data
+                else:
+                    db = client["escuela"]
+                    try:
+                        maestros_data = list(db["Maestros"].find())
+                        if maestros_data:
+                            self.maestros.items = [Maestro(**{k: v for k, v in m.items() if k != '_id'}) for m in maestros_data]
+                            self.maestros.to_json()
+                    except Exception as e:
+                        print(f"Error al cargar maestros de MongoDB: {e}")
+            else:
+                if os.path.exists("maestros_offline.json"):
+                    data = self.maestros.read_json("maestros_offline.json")
+                    if data:
+                        self.maestros = data
+                elif os.path.exists("maestros.json"):
+                    data = self.maestros.read_json()
+                    if data:
+                        self.maestros = data
+        except Exception as e:
+            print(f"Error al cargar maestros: {e}")
 
     def guardar_datos(self):
         client = conectar_mongo()
         if client:
             db = client["escuela"]
+            self.sincronizar_offline(db)
             try:
                 db["Maestros"].delete_many({})
                 db["Maestros"].insert_many([m.to_dict() for m in self.maestros.items])
-                print("Datos guardados en MongoDB.")
+                self.maestros.to_json()
+                print("Datos guardados en maestros.json y MongoDB.")
             except Exception as e:
                 print(f"Error al guardar en MongoDB: {e}")
         else:
             try:
-                with open("maestros.json", "w") as f:
-                    json.dump([m.to_dict() for m in self.maestros.items], f, indent=4)
-                print("Datos guardados en JSON.")
+                self.maestros.to_json("maestros_offline.json")
+                print("Datos guardados en maestros_offline.json (modo offline).")
             except Exception as e:
-                print(f"Error al guardar en JSON: {e}")
+                print(f"Error al guardar en JSON offline: {e}")
+
+    def sincronizar_offline(self, db):
+        if os.path.exists("maestros_offline.json"):
+            try:
+                offline_data = self.maestros.read_json("maestros_offline.json")
+                if offline_data:
+                    db["Maestros"].delete_many({})
+                    db["Maestros"].insert_many(offline_data)
+                    print("Datos offline sincronizados con MongoDB.")
+                os.remove("maestros_offline.json")
+            except Exception as e:
+                print(f"Error al sincronizar datos offline: {e}")
 
     def mostrar_menu(self):
         while True:
@@ -70,7 +92,7 @@ class MenuMaestros:
                 self.editar_maestro()
             elif opcion == "4":
                 self.eliminar_maestro()
-            elif opcion == "5":
+            elif opcion == "5":     
                 print("Saliendo del sistema...")
                 break
             else:
@@ -152,10 +174,5 @@ class MenuMaestros:
             print(f"Selección no válida: {str(e)}")
 
 if __name__ == "__main__":
-    maestro1 = Maestro(nombre="Juan", apellido="Pérez", edad=35, matricula="333333333", especialidad="Matemáticas")
-    maestro2 = Maestro(nombre="María", apellido="García", edad=40, matricula="444444444", especialidad="Física")
-    maestros = Maestro()
-    maestros.agregar(maestro1)
-    maestros.agregar(maestro2)
-    app = MenuMaestros(maestros=maestros)
+    app = MenuMaestros()
     app.mostrar_menu() 

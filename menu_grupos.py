@@ -20,48 +20,50 @@ class MenuGrupos:
             self.isJson = False
 
     def cargar_datos(self):
-        client = conectar_mongo()
-        if os.path.exists("grupos_offline.json"):
-            try:
-                data = self.grupos.read_json("grupos_offline.json")
-                if data:
-                    self.grupos.items = [Grupo(**g) for g in data]
-                print("Datos cargados de grupos_offline.json (modo offline).")
-            except Exception as e:
-                print(f"Error al cargar grupos_offline.json: {e}")
-        elif os.path.exists("grupos.json"):
-            try:
-                data = self.grupos.read_json("grupos.json")
-                if data:
-                    self.grupos.items = [Grupo(**g) for g in data]
-                print("Datos cargados de grupos.json.")
-            except Exception as e:
-                print(f"Error al cargar grupos.json: {e}")
-        elif client:
-            db = client["escuela"]
-            self.sincronizar_offline(db)
-            try:
-                grupos_data = list(db["Grupos"].find())
-                if grupos_data:
-                    self.grupos.items = [Grupo(**g) for g in grupos_data]
-                print("Datos cargados de MongoDB.")
-            except Exception as e:
-                print(f"Error al cargar grupos de MongoDB: {e}")
-        else:
-            print("No se encontraron datos de grupos.")
+        try:
+            client = conectar_mongo()
+            if client:
+                if os.path.exists("grupos.json"):
+                    data = self.grupos.read_json("grupos.json")
+                    if data:
+                        self.grupos = data  
+                else:
+                    db = client["escuela"]
+                    try:
+                        grupos_data = list(db["Grupos"].find())
+                        if grupos_data:
+                            self.grupos.items = [Grupo(**g) for g in grupos_data]
+                            self.grupos.to_json() 
+                    except Exception as e:
+                        print(f"Error al cargar grupos de MongoDB: {e}")
+            else:
+                if os.path.exists("grupos_offline.json"):
+                    data = self.grupos.read_json("grupos_offline.json")
+                    if data:
+                        self.grupos = data  
+                elif os.path.exists("grupos.json"):
+                    data = self.grupos.read_json("grupos.json")
+                    if data:
+                        self.grupos = data 
+        except Exception as e:
+            print(f"Error al cargar grupos: {e}")
 
     def guardar_datos(self):
         client = conectar_mongo()
         if client:
             db = client["escuela"]
-            # Sincronizar datos offline si existen
             self.sincronizar_offline(db)
             try:
                 db["Grupos"].delete_many({})
                 db["Grupos"].insert_many([g.to_dict() for g in self.grupos.items])
-                self.grupos.to_json()
-                print("Datos guardados en grupos.json")
-                print("Datos guardados en MongoDB.")
+                self.grupos.to_json()  
+
+                for grupo in self.grupos.items:
+                    if hasattr(grupo, 'alumnos') and hasattr(grupo.alumnos, 'items'):
+                        for alumno in grupo.alumnos.items:
+                            if not db["Alumnos"].find_one({"matricula": alumno.matricula}):
+                                db["Alumnos"].insert_one(alumno.to_dict())
+                print("Datos guardados en grupos.json y MongoDB.")
             except Exception as e:
                 print(f"Error al guardar en MongoDB: {e}")
         else:
@@ -74,8 +76,9 @@ class MenuGrupos:
     def sincronizar_offline(self, db):
         if os.path.exists("grupos_offline.json"):
             try:
-                offline_data = self.grupos.to_json("grupos_offline.json")
-                if offline_data :
+                with open("grupos_offline.json", "r") as f:
+                    offline_data = json.load(f)
+                if offline_data:
                     db["Grupos"].delete_many({})
                     db["Grupos"].insert_many(offline_data)
                     print("Datos offline sincronizados con MongoDB.")

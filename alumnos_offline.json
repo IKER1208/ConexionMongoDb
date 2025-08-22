@@ -1,1 +1,20 @@
-[]
+[
+    {
+        "nombre": "Pruebaaa",
+        "apellido": "Prueba",
+        "edad": 23,
+        "matricula": "12322344",
+        "promedio": 10.0,
+        "sexo": null,
+        "es_objeto": false
+    },
+    {
+        "nombre": "Poksdkapo",
+        "apellido": "nfsdnfsd",
+        "edad": 53,
+        "matricula": "weqweqwe",
+        "promedio": 3.0,
+        "sexo": null,
+        "es_objeto": false
+    }
+]
