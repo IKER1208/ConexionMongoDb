@@ -81,7 +81,8 @@ class MenuAlumnos:
             print("2. Agregar alumno")
             print("3. Editar alumno")
             print("4. Eliminar alumno")
-            print("5. Salir")
+            print("5. Estadisticas de calificaciones")
+            print("6. Salir")
             
             opcion = input("Seleccione una opción: ")
             
@@ -94,6 +95,8 @@ class MenuAlumnos:
             elif opcion == "4":
                 self.eliminar_alumno()
             elif opcion == "5":
+                self.estadisticas_calificaciones()
+            elif opcion == "6":
                 print("Saliendo del sistema...")
                 break
             else:
@@ -106,7 +109,7 @@ class MenuAlumnos:
             return
             
         for i, alumno in enumerate(self.alumnos.items):
-            print(f"{i+1}. {alumno.nombre} {alumno.apellido} - {alumno.matricula}")
+            print(f"{i+1}. {alumno.nombre} {alumno.apellido} - {alumno.matricula} - {alumno.calificacion}")
 
     def agregar_alumno(self):
         print("\n--- AGREGAR ALUMNO ---")
@@ -115,13 +118,13 @@ class MenuAlumnos:
             apellido = input("Apellido: ")
             edad = int(input("Edad: "))
             matricula = input("Matrícula: ")
-            promedio = float(input("Promedio (0-10): "))
+            calificacion = float(input("Calificacion (0-100): "))
             nuevo_alumno = Alumno(
                 nombre=nombre,
                 apellido=apellido,
                 edad=edad,
                 matricula=matricula,
-                promedio=promedio
+                calificacion=calificacion
             )
             if not hasattr(self.alumnos, 'agregar'):
                 self.alumnos = Alumno()
@@ -147,13 +150,13 @@ class MenuAlumnos:
             edad = input(f"Edad ({alumno.edad}): ")
             edad = int(edad) if edad else alumno.edad
             matricula = input(f"Matrícula ({alumno.matricula}): ") or alumno.matricula
-            promedio = input(f"Promedio ({alumno.promedio}): ")
-            promedio = float(promedio) if promedio else alumno.promedio
+            calificacion = input(f"Calificacion ({alumno.calificacion}): ")
+            calificacion = float(calificacion) if calificacion else alumno.calificacion
             alumno.nombre = nombre
             alumno.apellido = apellido
             alumno.edad = edad
             alumno.matricula = matricula
-            alumno.promedio = promedio
+            alumno.calificacion = calificacion
             print("Alumno actualizado correctamente.")
             self.guardar_datos()
         except (IndexError, ValueError) as e:
@@ -174,6 +177,20 @@ class MenuAlumnos:
                     self.guardar_datos()
         except (IndexError, ValueError) as e:
             print(f"Selección no válida: {str(e)}")
+
+    def estadisticas_calificaciones(self):
+        print("\n--- ESTADÍSTICAS DE CALIFICACIONES ---")
+        if not hasattr(self.alumnos, 'items') or not self.alumnos.items:
+            print("No hay alumnos registrados.")
+            return
+        calificaciones = [a.calificacion for a in self.alumnos.items]
+        prom = sum(calificaciones) / len(calificaciones)
+        print(f"Promedio de calificaciones: {prom}")
+        print(f"Alumnos debajo del promedio: {sum(1 for c in calificaciones if c < prom)}")
+        print(f"Alumnos arriba del promedio: {sum(1 for c in calificaciones if c > prom)}")
+        print(f"Alumnos aprobados: {sum(1 for c in calificaciones if c >= 70)}")
+        print(f"Alumnos reprobados: {sum(1 for c in calificaciones if c < 70)}")
+ 
 
 if __name__ == "__main__":
     app = MenuAlumnos()

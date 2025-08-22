@@ -1,56 +1,6 @@
 [
     {
-        "nombre": "grupoOFFYMONGO",
-        "grado": null,
-        "seccion": null,
-        "maestro": {
-            "nombre": "wqeweqwe",
-            "apellido": "qwewqeq",
-            "edad": 122,
-            "matricula": "12121212",
-            "especialidad": "qweqweqweqwe",
-            "es_objeto": false
-        },
-        "alumnos": [
-            {
-                "nombre": "OFF",
-                "apellido": "MONGO",
-                "edad": 100,
-                "matricula": "100000",
-                "promedio": 10.0,
-                "sexo": null,
-                "es_objeto": false
-            }
-        ],
-        "es_objeto": false
-    },
-    {
-        "nombre": "QWERTYYY",
-        "grado": null,
-        "seccion": null,
-        "maestro": {
-            "nombre": "meto",
-            "apellido": "weqweqw",
-            "edad": 10,
-            "matricula": "1111111",
-            "especialidad": "de todo",
-            "es_objeto": false
-        },
-        "alumnos": [
-            {
-                "nombre": "offff",
-                "apellido": "ffffff",
-                "edad": 100,
-                "matricula": "11111",
-                "promedio": 10.0,
-                "sexo": null,
-                "es_objeto": false
-            }
-        ],
-        "es_objeto": false
-    },
-    {
-        "nombre": "OFFLINE UNO",
+        "nombre": "Prueba",
         "grado": null,
         "seccion": null,
         "maestro": {
@@ -63,113 +13,29 @@
         },
         "alumnos": [
             {
-                "nombre": "Pruebaaa",
-                "apellido": "Prueba",
+                "nombre": "qwdqdw",
+                "apellido": "ascasc",
                 "edad": 23,
-                "matricula": "12322344",
-                "promedio": 10.0,
+                "matricula": "asasd",
+                "calificacion": 70.0,
                 "sexo": null,
                 "es_objeto": false
             },
             {
-                "nombre": "Poksdkapo",
-                "apellido": "nfsdnfsd",
-                "edad": 53,
-                "matricula": "weqweqwe",
-                "promedio": 3.0,
-                "sexo": null,
-                "es_objeto": false
-            }
-        ],
-        "es_objeto": false
-    },
-    {
-        "nombre": "OFFLINE DOS",
-        "grado": null,
-        "seccion": null,
-        "maestro": {
-            "nombre": "meto",
-            "apellido": "weqweqw",
-            "edad": 10,
-            "matricula": "111111",
-            "especialidad": "de todo",
-            "es_objeto": false
-        },
-        "alumnos": [
-            {
-                "nombre": "No see",
-                "apellido": "No see",
-                "edad": 12,
-                "matricula": "23232323",
-                "promedio": 10.0,
+                "nombre": "wqeqwe",
+                "apellido": "weqewqw",
+                "edad": 32,
+                "matricula": "weqqew",
+                "calificacion": 50.0,
                 "sexo": null,
                 "es_objeto": false
             },
             {
-                "nombre": "Pruebaaa",
-                "apellido": "aasasas",
-                "edad": 45,
-                "matricula": "adasdsdasd",
-                "promedio": 2.0,
-                "sexo": null,
-                "es_objeto": false
-            }
-        ],
-        "es_objeto": false
-    },
-    {
-        "nombre": "",
-        "grado": null,
-        "seccion": null,
-        "maestro": {
-            "nombre": "meto",
-            "apellido": "weqweqw",
-            "edad": 10,
-            "matricula": "111111",
-            "especialidad": "de todo",
-            "es_objeto": false
-        },
-        "alumnos": [
-            {
-                "nombre": "A ver",
-                "apellido": "qpdo",
+                "nombre": "ewewewe",
+                "apellido": "wewewe",
                 "edad": 34,
-                "matricula": "3232134",
-                "promedio": 5.0,
-                "sexo": null,
-                "es_objeto": false
-            }
-        ],
-        "es_objeto": false
-    },
-    {
-        "nombre": "NUEVOOO",
-        "grado": null,
-        "seccion": null,
-        "maestro": {
-            "nombre": "wqeweqwe",
-            "apellido": "qwewqeq",
-            "edad": 122,
-            "matricula": "12121212",
-            "especialidad": "qweqweqweqwe",
-            "es_objeto": false
-        },
-        "alumnos": [
-            {
-                "nombre": "NO seeee",
-                "apellido": "Seeee",
-                "edad": 24,
-                "matricula": "wewqeqwe",
-                "promedio": 10.0,
-                "sexo": null,
-                "es_objeto": false
-            },
-            {
-                "nombre": "Seeeee",
-                "apellido": "Nooooo",
-                "edad": 43,
-                "matricula": "weqweqweqw",
-                "promedio": 10.0,
+                "matricula": "wqeqwe",
+                "calificacion": 90.0,
                 "sexo": null,
                 "es_objeto": false
             }

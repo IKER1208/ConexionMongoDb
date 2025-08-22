@@ -1,10 +1,28 @@
 [
     {
-        "nombre": "sdasdas",
-        "apellido": "dasdsa",
-        "edad": 12,
-        "matricula": "1233231",
-        "promedio": 132121.0,
+        "nombre": "qwdqdw",
+        "apellido": "ascasc",
+        "edad": 23,
+        "matricula": "asasd",
+        "calificacion": 70.0,
+        "sexo": null,
+        "es_objeto": false
+    },
+    {
+        "nombre": "wqeqwe",
+        "apellido": "weqewqw",
+        "edad": 32,
+        "matricula": "weqqew",
+        "calificacion": 50.0,
+        "sexo": null,
+        "es_objeto": false
+    },
+    {
+        "nombre": "ewewewe",
+        "apellido": "wewewe",
+        "edad": 34,
+        "matricula": "wqeqwe",
+        "calificacion": 90.0,
         "sexo": null,
         "es_objeto": false
     }

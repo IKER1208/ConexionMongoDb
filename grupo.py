@@ -122,4 +122,4 @@ if __name__ == "__main__":
     grupos.agregar(grupo_individual)
 
     interfaz = MenuGrupos(grupos)
-    interfaz.menu()
+    interfaz.mostrar_menu()
