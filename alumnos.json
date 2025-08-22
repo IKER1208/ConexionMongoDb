@@ -34,5 +34,14 @@
         "calificacion": 90.0,
         "sexo": null,
         "es_objeto": false
+    },
+    {
+        "nombre": "adspoasdpoasd",
+        "apellido": "asdnasdlasd",
+        "edad": 12,
+        "matricula": "qwdqweqwe",
+        "calificacion": 60.0,
+        "sexo": null,
+        "es_objeto": false
     }
 ]

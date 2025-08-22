@@ -131,6 +131,7 @@ class MenuAlumnos:
             if not hasattr(self.alumnos, 'agregar'):
                 self.alumnos = Alumno()
             self.alumnos.agregar(nuevo_alumno)
+            self.guardar_estadisticas()
             print("Alumno agregado correctamente.")
             self.guardar_datos()
         except ValueError as e:
@@ -192,7 +193,6 @@ class MenuAlumnos:
         print(f"Alumnos arriba del promedio: {sum(1 for c in calificaciones if c > prom)}")
         print(f"Alumnos aprobados: {sum(1 for c in calificaciones if c >= 70)}")
         print(f"Alumnos reprobados: {sum(1 for c in calificaciones if c < 70)}")
-        # Persistir las estadísticas solamente en grupos.json si estamos dentro de un grupo
         if self.grupo is not None and self.grupos_ref is not None:
             try:
                 estadisticas = {
@@ -202,8 +202,16 @@ class MenuAlumnos:
                     'aprobados': sum(1 for c in calificaciones if c >= 70),
                     'reprobados': sum(1 for c in calificaciones if c < 70)
                 }
-                # adjuntar al grupo actual y escribir solo en grupos.json
                 self.grupo.estadisticas = estadisticas
+                if hasattr(self.grupos_ref, 'to_json'):
+                    self.grupos_ref.to_json("grupos.json")
+            except Exception as e:
+                print(f"Error al guardar estadísticas en grupos.json: {e}")
+ 
+    def guardar_estadisticas(self):
+        if self.grupo is not None and self.grupos_ref is not None:
+            try:
+                self.grupo.estadisticas = self.estadisticas_calificaciones()
                 if hasattr(self.grupos_ref, 'to_json'):
                     self.grupos_ref.to_json("grupos.json")
             except Exception as e:
